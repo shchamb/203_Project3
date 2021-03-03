@@ -1,0 +1,71 @@
+John Shutler's Design Choice Reasoning
+
+Introduction:
+I put my reasoning for all of the methods that I was unsure about. If a method was not listed in this design document, I either thought the name of the method was obvious enough to determine it, or that it should be placed in the class where it is being called, assuming it's being called there exclusively. 
+
+
+
+
+
+getCurrentImage() - Left in Functions Class:
+Reasoning - This was the last method that I looked at. And after refactoring all other methods into individual classes, I found that this was being called from methods in two unique classes. So I didn't think i twould make sense to be placed in either one of those methods, as in either one it would have to remain a public static method so the other class could call it as such. So I decided to leave it alone.
+
+
+getAnimationPeriod() - Entity
+Reasoning, because this method only took as an Entity as an arguement, I felt it made sense to move it to the Entity class. That way when it was called the syntax would be nicer. Furthermore it only accessed elements inside of Entity.
+
+
+nextImage() - Entity
+Reasoning - Same as from getAnimationPeriod()
+
+
+executeAction() - Action
+Reasoning - I was debating between putting this in Action and Entity. I wasnted to put it in Entity intially because of the name, mapping the behavior to execute an action in Entity made sense to me. However, noticing that it accessed attributes from inside of Action, as well as the name simply being: executeAction, I thought it should probably be in Action
+
+
+executeActivityAction() - Action
+Reasoning - I was also considering putting this in Entity for the same reason as executeAction, but this method is only called from executeAction, so making it a private method within Action made sense.
+
+
+(ExecuteOctoFullActivity, ExecuteOctoNotFullActivity, executeFishActivity, executeCrabActivity, executeQuakeActivity, executeAtlantisActivity, executeSgrassActivity) - Entity
+I considered placing all of these methods with the Action Class as well, as they are only called from executeActivityAction, so you could make them all private if they were there. But due to their use of attributes within the Entity class, as well the fact that defining Enttiy specific Activities within Entity made sense. 
+
+
+(transformNotFull, transformFull, moveToNotFull, moveToFull, moveToCrab, nextPositionOcto, nextPositionCrab) - Entity
+Reasoning - All of these methods were being called from methods already placed in the Entity Class. So moving them to Entity made sense so you could keep them private.
+
+
+adjacent - Point
+Reasoning - Allowing a Point to see if another Point is adjacent to itself seemed prudent. So I moved it to the Point class.
+
+
+findOpenAround() - WorldModel
+Reasoning - All of the data regarding where objects were located are in the WOrld Model Class. So it is also the class with the most access to information to find whether there is open space around any particular Point within itself. 
+
+
+(scheduleEvent, scheduleActions, unscheduleAllEvents, remvoePendingEvent, updateOnTime) - EventScheduler
+Reasoning - All of these methods regard scheduling or unscheduling something going on in the world. That is the type of behavior needed for the EventScheduler. 
+
+
+(shift, contains) - ViewPort
+Reasoning, I felt like the two methods could have gone in either Viewport or Worldview. However, they were accessing data from Viewport directly. So took that to mean these should be in Viewport
+
+
+load - WorldModel
+Reasoning - As WorldModel is where the data of stuff in the place is kept, I felt that loading it in WorldModel seemed more appropriate than placing it VirtualWorld.
+
+
+(parseBackground, parseOcto, parseObstacle, parseFish, parseAtlantis, parseSgrass) - WorldModel
+I felt like these parse methods should have either been in WorldModel or in Entity. I ultimately decided to go with WorldModel because these methods are only called from other methods in WorldModel, so keeping them private here made sense. 
+
+
+distanceSquared() - Point
+finding the distance between this point and another point just seemed like sound logic to keep in point
+
+
+(createAnimationAction, createActivityAction) - Action
+Reasoning - I deliberated over putting these in Action or Functions. Due to them returning an Action object, I thought they should remain static, and I initially thought static logic like that should remain in Functions, where it can be used generally. Then having the logic to create an Action is very suited to being in the Action class, even if it is as a static method
+
+
+(createAtlantis, createOctoFull, createOctoNotFull, createObstacle, createFish, createCrab, createQuake, createSgrass) - Entity
+Reasoning - Same logic as above.

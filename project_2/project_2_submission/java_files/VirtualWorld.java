@@ -28,11 +28,11 @@ public final class VirtualWorld
    public static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE;
    public static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
 
-   public static final String IMAGE_LIST_FILE_NAME = "imagelist";
+   public static final String IMAGE_LIST_FILE_NAME = "project_2/imagelist";
    public static final String DEFAULT_IMAGE_NAME = "background_default";
    public static final int DEFAULT_IMAGE_COLOR = 0x808080;
 
-   public static final String LOAD_FILE_NAME = "world.sav";
+   public static final String LOAD_FILE_NAME = "project_2/world.sav";
 
    public static final String FAST_FLAG = "-fast";
    public static final String FASTER_FLAG = "-faster";

@@ -18,11 +18,11 @@ crab images/crabout10.bmp 255 255 255 128
 crab images/crabout11.bmp 255 255 255 128
 crab images/crabout11.bmp 255 255 255 128
 sea images/sea.bmp 255 255 255 0
-octo images/s1.bmp 255 255 255 0
-octo images/s2.bmp 255 255 255 0
-octo images/s3.bmp 255 255 255 0
-octo images/s4.bmp 255 255 255 0
-octo images/s5.bmp 255 255 255 0
+octo images/charmy1.bmp 255 255 255 0
+octo images/charmy2.bmp 255 255 255 0
+octo images/charmy3.bmp 255 255 255 0
+octo images/charmy4.bmp 255 255 255 0
+octo images/charmy5.bmp 255 255 255 0
 obstacle images/rock.bmp
 fish images/fish.bmp 255 255 255 0
 quake images/quake1.bmp 255 255 255 0

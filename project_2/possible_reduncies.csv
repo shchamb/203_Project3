@@ -1,0 +1,3 @@
+Method,Reasoning
+moveTo*,"Both Crab, and Octo have a method called moveTo*, we might want to place that as just moveTo in a parent class"
+nextPosition*,"Both Crab, and Octo have a method called nextPosition*, we might want to place that as just nextPosition in a parent class"

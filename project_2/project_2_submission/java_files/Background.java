@@ -1,0 +1,40 @@
+import java.util.List;
+import processing.core.PImage;
+
+final class Background
+{
+   private final String id;
+   private final List<PImage> images;
+   private int imageIndex;
+
+   public static final String BGND_KEY = "background";
+   public static final int BGND_NUM_PROPERTIES = 4;
+   public static final int BGND_ID = 1;
+   public static final int BGND_COL = 2;
+   public static final int BGND_ROW = 3;
+
+   public int getImageIndex() {
+      return imageIndex;
+   }
+   public String getId() {
+      return id;
+   }
+   public List<PImage> getImages() {
+      return images;
+   }
+
+
+
+   public Background(String id, List<PImage> images)
+   {
+      this.id = id;
+      this.images = images;
+   }
+   public PImage getCurrentImage()
+   {
+
+      return this.getImages()
+              .get(this.getImageIndex());
+
+   }
+}

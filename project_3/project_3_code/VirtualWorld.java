@@ -16,10 +16,10 @@ public final class VirtualWorld
 {
    public static final int TIMER_ACTION_PERIOD = 100;
 
-   public static final int VIEW_WIDTH = 640;
-   public static final int VIEW_HEIGHT = 480;
-   public static final int TILE_WIDTH = 32;
-   public static final int TILE_HEIGHT = 32;
+   public static final int VIEW_WIDTH = 1280;
+   public static final int VIEW_HEIGHT = 960;
+   public static final int TILE_WIDTH = 64;
+   public static final int TILE_HEIGHT = 64;
    public static final int WORLD_WIDTH_SCALE = 2;
    public static final int WORLD_HEIGHT_SCALE = 2;
 
@@ -28,11 +28,11 @@ public final class VirtualWorld
    public static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE;
    public static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
 
-   public static final String IMAGE_LIST_FILE_NAME = "project_2/imagelist";
+   public static final String IMAGE_LIST_FILE_NAME = "project_3/imagelist";
    public static final String DEFAULT_IMAGE_NAME = "background_default";
    public static final int DEFAULT_IMAGE_COLOR = 0x808080;
 
-   public static final String LOAD_FILE_NAME = "project_2/world.sav";
+   public static final String LOAD_FILE_NAME = "project_3/world.sav";
 
    public static final String FAST_FLAG = "-fast";
    public static final String FASTER_FLAG = "-faster";

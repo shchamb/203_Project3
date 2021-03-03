@@ -1,0 +1,36 @@
+atlantis images/big_atlantis0.bmp 255 255 255 0
+atlantis images/big_atlantis1.bmp
+atlantis images/big_atlantis2.bmp
+atlantis images/big_atlantis3.bmp
+atlantis images/big_atlantis4.bmp
+atlantis images/big_atlantis5.bmp
+atlantis images/big_atlantis6.bmp
+crab images/big_crabout01.bmp 255 255 255 128
+crab images/big_crabout02.bmp 255 255 255 128
+crab images/big_crabout03.bmp 255 255 255 128
+crab images/big_crabout04.bmp 255 255 255 128
+crab images/big_crabout05.bmp 255 255 255 128
+crab images/big_crabout06.bmp 255 255 255 128
+crab images/big_crabout07.bmp 255 255 255 128
+crab images/big_crabout08.bmp 255 255 255 128
+crab images/big_crabout09.bmp 255 255 255 128
+crab images/big_crabout10.bmp 255 255 255 128
+crab images/big_crabout11.bmp 255 255 255 128
+crab images/big_crabout11.bmp 255 255 255 128
+sea images/big_sea.bmp 255 255 255 0
+octo images/big_charmy1.bmp 255 255 255 0
+octo images/big_charmy2.bmp 255 255 255 0
+octo images/big_charmy3.bmp 255 255 255 0
+octo images/big_charmy4.bmp 255 255 255 0
+octo images/big_charmy5.bmp 255 255 255 0
+obstacle images/big_rock.bmp
+fish images/big_fish.bmp 255 255 255 0
+quake images/big_quake1.bmp 255 255 255 0
+quake images/big_quake2.bmp 255 255 255 0
+quake images/big_quake3.bmp 255 255 255 0
+quake images/big_quake4.bmp 255 255 255 0
+quake images/big_quake5.bmp 255 255 255 0
+quake images/big_quake6.bmp 255 255 255 0
+bubbles images/big_bubbles.bmp
+seaGrass images/big_Seaweed1.bmp 255 255 255 0
+background_default images/big_none.bmp

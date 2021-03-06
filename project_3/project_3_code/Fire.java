@@ -11,7 +11,7 @@ public class Fire extends activeEntity{
     public static final int FIRE_ACTION_PERIOD = 2;
     public static final int FIRE_ANIMATION_PERIOD = 3;
     public int actionPeriod = 11;
-    public int animationPeriod = 10;
+//    public int animationPeriod = 10;
 //    public Point pos;
 
 
@@ -42,9 +42,7 @@ public class Fire extends activeEntity{
         scheduler.scheduleEvent(this,
                 new activityAction(this, world, imageStore),
                 this.actionPeriod);
-        scheduler.scheduleEvent(this,
-                new animationAction(this, 10),
-                this.animationPeriod);
+
     }
 
 

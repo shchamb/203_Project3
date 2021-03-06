@@ -21,4 +21,8 @@ public abstract class activeEntity extends Entity{
 
 
     public abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler);
+
+    public void setActionPeriod(int x){
+        this.actionPeriod = x;
+    }
 }

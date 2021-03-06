@@ -32,6 +32,7 @@ public class Crab  extends movingEntity {
                 world.addEntity(quake);
                 nextPeriod += super.getActionPeriod();
                 quake.scheduleActions(scheduler, world, imageStore);
+//                world.removeEntity(this);
             }
         }
 

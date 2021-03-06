@@ -31,4 +31,8 @@ public abstract class animatedEntity extends activeEntity{
 
     }
 
+    public void setAnimationPeriod(int x){
+        this.animationPeriod = x;
+    }
+
 }

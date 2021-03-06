@@ -198,7 +198,7 @@ public final class VirtualWorld
       {
          //Only start actions for entities that include action (not those with just animations)
          //we only want entities that are active, otherwise we don't care (stupid obstacles
-         if (entity instanceof activeEntity){
+         if (entity instanceof activeEntity || entity instanceof Fire){
 
             if (((activeEntity) entity).getActionPeriod() > 0)
                ((activeEntity)entity).scheduleActions(scheduler, world, imageStore);

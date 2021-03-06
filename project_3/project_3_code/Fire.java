@@ -10,6 +10,8 @@ public class Fire extends Entity{
     public static final String FIRE_KEY = "fire";
     public static final int FIRE_ACTION_PERIOD = 2;
     public static final int FIRE_ANIMATION_PERIOD = 3;
+    public int actionPeriod = 11;
+    public int animationPeriod = 10;
 //    public Point pos;
 
 
@@ -29,6 +31,20 @@ public class Fire extends Entity{
 //                new Background(id, imageStore.getImageList(id)));
         //wait?
 //        world.removeEntity(this);
+    }
+    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        scheduler.unscheduleAllEvents(this);
+        world.removeEntity(this);
+    }
+
+    public void scheduleActions(EventScheduler scheduler,
+                                WorldModel world, ImageStore imageStore){
+        scheduler.scheduleEvent(this,
+                new activityAction(this, world, imageStore),
+                this.actionPeriod);
+        scheduler.scheduleEvent(this,
+                new animationAction(this, 10),
+                this.animationPeriod);
     }
 
 

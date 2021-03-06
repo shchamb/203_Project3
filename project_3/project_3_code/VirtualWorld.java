@@ -120,6 +120,7 @@ public final class VirtualWorld
                charmy.setImageIndex(1);
                if(charmy.move(charmy.world, pos,left)) {
                   dx = -1;
+                  charmy.setDirection("left");
                }
                break;
             case RIGHT:
@@ -127,6 +128,7 @@ public final class VirtualWorld
                charmy.setImageIndex(0);
                if(charmy.move(charmy.world, pos,right)) {
                   dx = 1;
+                  charmy.setDirection("right");
                }
                break;
          }
@@ -199,8 +201,8 @@ public final class VirtualWorld
       {
          //Only start actions for entities that include action (not those with just animations)
          //we only want entities that are active, otherwise we don't care (stupid obstacles
-         if (entity instanceof activeEntity || entity instanceof Fire){
-
+         if (entity instanceof activeEntity){
+//            System.out.println(entity.getId());
             if (((activeEntity) entity).getActionPeriod() > 0)
                ((activeEntity)entity).scheduleActions(scheduler, world, imageStore);
          }

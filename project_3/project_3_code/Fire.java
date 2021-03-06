@@ -3,7 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 import java.util.List;
 
-public class Fire extends Entity{
+public class Fire extends activeEntity{
 
     public static final int FIRE_NUM_PROPERTIES = 3;
     public static final int FIRE_ID = 1;
@@ -16,7 +16,7 @@ public class Fire extends Entity{
 
 
     public Fire(String id, Point position, List<PImage> images) {
-        super(id, position, images);
+        super(id, position, images, 11);
 //        this.pos = pos;
     }
 

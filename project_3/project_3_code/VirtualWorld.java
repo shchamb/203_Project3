@@ -88,7 +88,8 @@ public final class VirtualWorld
          this.scheduler.updateOnTime(time);
          next_time = time + TIMER_ACTION_PERIOD;
       }
-
+//      System.out.println("Row: " + view.getViewport().getRow());
+//      System.out.println("Col: " + view.getViewport().getCol());
       view.drawViewport();
    }
 
@@ -138,7 +139,7 @@ public final class VirtualWorld
 //      System.out.println(pos);
 //      System.out.println(mouseX);
 //      System.out.println(mouseY);
-      charmy.makeFire(imageStore,  view.getViewport().getRow() + (mouseX / 64), view.getViewport().getCol() + (mouseY / 64));
+      charmy.makeFire(imageStore,  view.getViewport().getCol() + (mouseX / 64), view.getViewport().getRow() + (mouseY / 64));
 //      charmy.makeFire(imageStore, mouseX, mouseY);
 //      System.out.println("clicked");
    }

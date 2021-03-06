@@ -41,32 +41,31 @@ public class Charmander extends Entity{
 
     }
 
-    public void keyPressed(KeyEvent e){
-        Point pos = this.getPosition();
-        switch( e.getKeyCode() ) {
-            case KeyEvent.VK_UP:
-                Point up = new Point(pos.x, pos.y - 1);
-                move(this.world, pos, up);
-                System.out.println("up");
-                break;
-            case KeyEvent.VK_DOWN:
-                Point down = new Point(pos.x, pos.y + 1);
-                move(world, pos,down);
-                break;
-            case KeyEvent.VK_LEFT:
-                Point left = new Point(pos.x - 1, pos.y);
-                move(world, pos,left);
-                break;
-            case KeyEvent.VK_RIGHT :
-                Point right = new Point(pos.x + 1, pos.y);
-                move(world, pos,right);
-                break;
-        }
-    }
-
+//
+//public void keyPressed(KeyEvent e){
+//        Point pos = this.getPosition();
+//        switch( e.getKeyCode() ) {
+//            case KeyEvent.VK_UP:
+//                Point up = new Point(pos.x, pos.y - 1);
+//                move(this.world, pos, up);
+//                System.out.println("up");
+//                break;
+//            case KeyEvent.VK_DOWN:
+//                Point down = new Point(pos.x, pos.y + 1);
+//                move(world, pos,down);
+//                break;
+//            case KeyEvent.VK_LEFT:
+//                Point left = new Point(pos.x - 1, pos.y);
+//                move(world, pos,left);
+//                break;
+//            case KeyEvent.VK_RIGHT :
+//                Point right = new Point(pos.x + 1, pos.y);
+//                move(world, pos,right);
+//                break;
+//        }
+//    }
     public void makeFire(ImageStore imageStore, int dirX, int dirY){
-        if((dirX == this.getPosition().x + 1 || dirX == this.getPosition().x - 1) && (dirY == this.getPosition().y)){
-            if(this.getImageIndex() == 0){
+               if(this.getImageIndex() == 0){
 //            Fire f = new Fire("fire", new Point(this.getPosition().x+1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
                 Fire f = new Fire("fire", new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
                 f.beFire(world);
@@ -85,5 +84,5 @@ public class Charmander extends Entity{
     }
 
 
-}
+
 

@@ -17,12 +17,17 @@ crab images/big_crabout09.bmp 255 255 255 128
 crab images/big_crabout10.bmp 255 255 255 128
 crab images/big_crabout11.bmp 255 255 255 128
 crab images/big_crabout11.bmp 255 255 255 128
-sea images/big_sea.bmp 255 255 255 0
+sea images/big_snow.bmp 255 255 255 0
+grass images/grass.bmp 255 255 255 0
 octo images/big_charmy1.bmp 255 255 255 0
 octo images/big_charmy2.bmp 255 255 255 0
 octo images/big_charmy3.bmp 255 255 255 0
 octo images/big_charmy4.bmp 255 255 255 0
 octo images/big_charmy5.bmp 255 255 255 0
+charmy images/charmyRight.bmp 255 255 255 0
+charmy images/charmyLeft.bmp 255 255 255 0
+fire images/fireball.bmp 255 255 255 0
+fire images/fireballLeft.bmp 255 255 255 0
 obstacle images/big_rock.bmp
 fish images/big_fish.bmp 255 255 255 0
 quake images/big_quake1.bmp 255 255 255 0

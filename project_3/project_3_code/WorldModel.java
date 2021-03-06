@@ -115,10 +115,46 @@ final class WorldModel
                return parseAtlantis(properties, imageStore);
             case Sgrass.SGRASS_KEY:
                return parseSgrass(properties, imageStore);
+            case Charmander.CHARMY_KEY:
+               return parseCharmander(properties, imageStore);
+            case Fire.FIRE_KEY:
+               return parseFire(properties, imageStore);
          }
       }
 
       return false;
+   }
+
+
+
+   public boolean parseCharmander(String[] properties, ImageStore imageStore) {
+      System.out.println(properties.length);
+      if (properties.length == Charmander.CHARMY_NUM_PROPERTIES)
+      {
+         System.out.println("char");
+         Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
+                 Integer.parseInt(properties[Charmander.CHARMY_ROW]));
+         Charmander entity = new Charmander("charmy", pt, imageStore.getImageList(Charmander.CHARMY_KEY),
+                 Integer.parseInt(properties[Charmander.CHARMY_ACTION_PERIOD]), Integer.parseInt(properties[Charmander.CHARMY_ANIMATION_PERIOD]), this);
+
+         this.tryAddEntity(entity);
+      }
+
+      return properties.length == Charmander.CHARMY_NUM_PROPERTIES;
+   }
+
+   public boolean parseFire(String[] properties, ImageStore imageStore) {
+      if (properties.length == Fire.FIRE_NUM_PROPERTIES)
+      {
+         Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
+                 Integer.parseInt(properties[Charmander.CHARMY_ROW]));
+         Fire entity = new Fire("fire", pt, imageStore.getImageList(Fire.FIRE_KEY));
+
+//
+         this.tryAddEntity(entity);
+      }
+
+      return properties.length == Fire.FIRE_NUM_PROPERTIES;
    }
 
    private boolean parseBackground(String [] properties, ImageStore imageStore)
@@ -243,7 +279,7 @@ final class WorldModel
       addEntity(entity);
    }
 
-   private boolean withinBounds(Point pos)
+   public boolean withinBounds(Point pos)
    {
       return pos.y >= 0 && pos.y < this.numRows &&
               pos.x >= 0 && pos.x < this.numCols;
@@ -314,6 +350,9 @@ final class WorldModel
       {
          setOccupancyCell(entity.getPosition(), entity);
          this.entities.add(entity);
+         if(entity instanceof Charmander){
+            VirtualWorld.charmy = (Charmander) entity;
+         }
       }
    }
 
@@ -334,7 +373,7 @@ final class WorldModel
       removeEntityAt(entity.getPosition());
    }
 
-   private void removeEntityAt(Point pos)
+   public void removeEntityAt(Point pos)
    {
       if (this.withinBounds(pos)
               && getOccupancyCell(pos) != null)
@@ -361,8 +400,8 @@ final class WorldModel
       }
    }
 
-   private void setBackground(Point pos,
-                                    Background background)
+   public void setBackground(Point pos,
+                             Background background)
    {
       if (withinBounds(pos))
       {
@@ -387,7 +426,7 @@ final class WorldModel
       return this.occupancy[pos.y][pos.x];
    }
 
-   private void setOccupancyCell(Point pos,
+   public void setOccupancyCell(Point pos,
                                        Entity entity)
    {
       this.occupancy[pos.y][pos.x] = entity;

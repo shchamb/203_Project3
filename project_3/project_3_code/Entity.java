@@ -69,6 +69,10 @@ abstract class Entity
       return imageIndex;
    }
 
+   public void setImageIndex(int x){
+      imageIndex = x;
+   }
+
 
 
 

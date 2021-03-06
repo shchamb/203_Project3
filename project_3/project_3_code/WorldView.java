@@ -79,4 +79,8 @@ final class WorldView
       drawEntities();
    }
 
+   public Viewport getViewport(){
+      return viewport;
+   }
+
 }

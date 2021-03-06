@@ -52,6 +52,8 @@ public final class VirtualWorld
 
    public static final Random rand = new Random();
 
+   public static Charmander charmy;
+
    public void settings()
    {
       size(VIEW_WIDTH, VIEW_HEIGHT);
@@ -94,27 +96,54 @@ public final class VirtualWorld
    {
       if (key == CODED)
       {
+         Point pos = charmy.getPosition();
          int dx = 0;
          int dy = 0;
 
          switch (keyCode)
          {
             case UP:
-               dy = -1;
+               Point up = new Point(pos.x, pos.y - 1);
+               if(charmy.move(charmy.world, pos, up)){
+                  dy = -1;
+               }
                break;
             case DOWN:
-               dy = 1;
+               Point down = new Point(pos.x, pos.y + 1);
+               if(charmy.move(charmy.world, pos,down)) {
+                  dy = 1;
+               }
                break;
             case LEFT:
-               dx = -1;
+               Point left = new Point(pos.x - 1, pos.y);
+               charmy.setImageIndex(1);
+               if(charmy.move(charmy.world, pos,left)) {
+                  dx = -1;
+               }
                break;
             case RIGHT:
-               dx = 1;
+               Point right = new Point(pos.x + 1, pos.y);
+               charmy.setImageIndex(0);
+               if(charmy.move(charmy.world, pos,right)) {
+                  dx = 1;
+               }
                break;
          }
          view.shiftView(dx, dy);
       }
    }
+
+   public void mouseClicked(){
+      Point pos = charmy.getPosition();
+//      System.out.println(pos);
+//      System.out.println(mouseX);
+//      System.out.println(mouseY);
+      charmy.makeFire(imageStore,  view.getViewport().getRow() + (mouseX / 64), view.getViewport().getCol() + (mouseY / 64));
+//      charmy.makeFire(imageStore, mouseX, mouseY);
+//      System.out.println("clicked");
+   }
+
+
 
    public static Background createDefaultBackground(ImageStore imageStore)
    {

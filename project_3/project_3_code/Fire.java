@@ -11,18 +11,21 @@ public class Fire extends activeEntity{
     public static final int FIRE_ACTION_PERIOD = 2;
     public static final int FIRE_ANIMATION_PERIOD = 3;
     public int actionPeriod = 11;
+    public Point dest;
 //    public int animationPeriod = 10;
 //    public Point pos;
 
 
-    public Fire(String id, Point position, List<PImage> images) {
+    public Fire(String id, Point position, Point dest, List<PImage> images) {
         super(id, position, images, 11);
+        this.dest = dest;
 //        this.pos = pos;
     }
 
-    public void beFire(WorldModel world){
+    public void beFire(WorldModel world, ImageStore imageStore){
         System.out.println("Fire!");
         world.addEntity(this);
+        Background.melt(world, new Point(this.getPosition().x, this.getPosition().y), imageStore);
 
 
 //        Point pt = this.getPosition();
@@ -33,6 +36,7 @@ public class Fire extends activeEntity{
 //        world.removeEntity(this);
     }
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
+        System.out.println("I'm fire");
         scheduler.unscheduleAllEvents(this);
         world.removeEntity(this);
     }

@@ -148,7 +148,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
                  Integer.parseInt(properties[Charmander.CHARMY_ROW]));
-         Fire entity = new Fire("fire", pt, imageStore.getImageList(Fire.FIRE_KEY));
+         Fire entity = new Fire("fire", pt, pt, imageStore.getImageList(Fire.FIRE_KEY));
 
 //
          this.tryAddEntity(entity);

@@ -20,11 +20,25 @@ public class Charmander extends Entity{
     public static final int CHARMY_ACTION_PERIOD = 5;
     public static final int CHARMY_ANIMATION_PERIOD = 6;
 
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String direction;
+
+
+
+
     public Charmander(String id, Point position, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
         super(id, position, images);
         this.actionPeriod = actionPeriod;
         this.animationPeriod = animationPeriod;
         this.world = world;
+        this.direction = "right";
     }
 
 
@@ -65,17 +79,20 @@ public class Charmander extends Entity{
 //        }
 //    }
     public void makeFire(ImageStore imageStore, int dirX, int dirY){
-               if(this.getImageIndex() == 0){
+        if(this.direction == "right"){
 //            Fire f = new Fire("fire", new Point(this.getPosition().x+1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
-                Fire f = new Fire("fire", new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
-                f.beFire(world);
-                Background.melt(world, new Point(dirX, dirY), imageStore);
+//            Fire f = new Fire("fire",new Point(this.getPosition().x + 1, this.getPosition().y) , new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
+            System.out.println("Charmander: " + ' ' + new Point(this.getPosition().x + 1, this.getPosition().y));
+            System.out.println("Mouse Click: " + ' ' + new Point(dirX, dirY));
+            Fire f = new Fire("fire", new Point(this.getPosition().x + 1, this.getPosition().y), new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
+                f.beFire(world, imageStore);
+//            Background.melt(world, new Point(dirX, dirY), imageStore);
             }else{
 //            Fire f = new Fire("fire", new Point(this.getPosition().x-1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
-                Fire f = new Fire("fire", new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
+                Fire f = new Fire("fire", new Point(this.getPosition().x - 1, this.getPosition().y), new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
                 f.setImageIndex(1);
-                f.beFire(world);
-                Background.melt(world, new Point(dirX, dirY), imageStore);
+                f.beFire(world, imageStore);
+//                Background.melt(world, new Point(dirX, dirY), imageStore);
             }
         }
 

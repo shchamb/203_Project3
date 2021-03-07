@@ -21,7 +21,7 @@ public class PiplupPanic extends Octo{
         Point target = new Point(rand.nextInt(40), rand.nextInt(30));
 
             if (
-                    this.moveToPoint( world, target, scheduler))
+                    this.moveToPoint( world, target, scheduler, imageStore))
             {
                 //at atlantis trigger animation
 //                ((activeEntity) fullTarget.get()).scheduleActions(scheduler, world, imageStore);
@@ -43,8 +43,9 @@ public class PiplupPanic extends Octo{
             return false;
         }
 
-    public boolean moveToPoint(WorldModel world, Point target, EventScheduler scheduler){
-        System.out.println("moving");
+    public boolean moveToPoint(WorldModel world, Point target, EventScheduler scheduler, ImageStore imageStore){
+//        System.out.println("moving");
+        Background.melt(world, this.getPosition(), imageStore);
         if (this.getPosition().adjacent(target))
         {
 

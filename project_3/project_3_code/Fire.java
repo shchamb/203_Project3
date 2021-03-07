@@ -2,6 +2,7 @@ import processing.core.PImage;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Fire extends activeEntity{
     public static final int FIRE_ANIMATION_PERIOD = 3;
     public int actionPeriod = 11;
     public Point dest;
+    Random rand = new Random();
 
     private PathingStrategy strategy = new AStarPathingStrategy();
 //    public int animationPeriod = 10;
@@ -68,22 +70,39 @@ public class Fire extends activeEntity{
 
             else {
                 Fire f = new Fire("fire", nextPos, this.dest, imageStore.getImageList(Fire.FIRE_KEY));
+                Point oldPos = this.getPosition();
                 world.removeEntity(this);
                 f.beFire(world, imageStore);
+//                if(rand.nextInt(10) < 1){
+//                    Caterpie cat = new Caterpie("caterpie", nextPos, imageStore.getImageList("caterpie"));
+//                    world.addEntity(cat);
+//                    System.out.println("caterpie");
+//                }
+
+
 
                 scheduler.scheduleEvent(f,
                         new activityAction(f, world, imageStore),
                         nextPeriod);
+                if(rand.nextInt(15) < 1){
+                    Caterpie cat = new Caterpie("caterpie", oldPos, imageStore.getImageList("caterpie"));
+                    world.addEntity(cat);
+                    System.out.println("caterpie");
+                }
             }
         }
 
         else{
             scheduler.unscheduleAllEvents(this);
+
             world.removeEntity(this);
 
-            Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"));
-            world.addEntity(cat);
-            System.out.println("caterpie");
+            if(rand.nextInt(15) < 1){
+                Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"));
+                world.addEntity(cat);
+                System.out.println("caterpie");
+            }
+
 //            cat.scheduleActions(scheduler, world, imageStore);
         }
 

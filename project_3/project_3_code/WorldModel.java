@@ -179,7 +179,7 @@ final class WorldModel
                  Integer.parseInt(properties[Octo.OCTO_ROW]));
 
 
-         octoNotFull entity = new octoNotFull(properties[Octo.OCTO_ID],
+         PiplupCalm entity = new PiplupCalm(properties[Octo.OCTO_ID],
                  pt,
                  imageStore.getImageList(Octo.OCTO_KEY),Integer.parseInt(properties[Octo.OCTO_LIMIT]), 0,
               Integer.parseInt(properties[Octo.OCTO_ACTION_PERIOD]), Integer.parseInt(properties[Octo.OCTO_ANIMATION_PERIOD]));

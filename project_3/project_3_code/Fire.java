@@ -66,6 +66,11 @@ public class Fire extends activeEntity{
         else{
             scheduler.unscheduleAllEvents(this);
             world.removeEntity(this);
+
+            Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"));
+            world.addEntity(cat);
+            System.out.println("caterpie");
+//            cat.scheduleActions(scheduler, world, imageStore);
         }
 
 

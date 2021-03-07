@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -23,7 +24,7 @@ public class PiplupCalm extends Octo{
         Point target = new Point(rand.nextInt(40), rand.nextInt(30));
 //
         if (!this.moveToPoint(world, target, scheduler) ||
-                !this.transformNotFull(world, scheduler, imageStore)) {
+                !this.panic(world, scheduler, imageStore)) {
 
 
             scheduler.scheduleEvent(this,
@@ -40,27 +41,12 @@ public class PiplupCalm extends Octo{
                           Point target, EventScheduler scheduler)
     {
 
-        Optional<Entity> maybeFireLeft = world.getOccupant(new Point(this.getPosition().x + 1, this.getPosition().y));
-        Optional<Entity> maybeFireRight = world.getOccupant(new Point(this.getPosition().x - 1, this.getPosition().y));
-        if(!(maybeFireLeft.equals(Optional.empty()))){
-            if(maybeFireLeft.get() instanceof Fire){
-                System.out.println("panic");
-//                this.panic(world, scheduler);
-                panic = true;
-                return true;
-            }
 
 
-        }
-        if(!(maybeFireRight.equals(Optional.empty()))){
-            if(maybeFireRight.get() instanceof Fire){
-                System.out.println("panic");
-                panic = true;
-//                this.panic(world, scheduler);
-                return true;
-            }
 
-
+        if(this.lookForFire(world)){
+            panic = true;
+            return true;
         }
         if (this.getPosition().adjacent(target))
         {
@@ -85,8 +71,8 @@ public class PiplupCalm extends Octo{
         }
     }
 
-    private boolean transformNotFull(WorldModel world,
-                                     EventScheduler scheduler, ImageStore imageStore)
+    private boolean panic(WorldModel world,
+                          EventScheduler scheduler, ImageStore imageStore)
     {
         if (this.panic == true)
         {
@@ -131,6 +117,33 @@ public class PiplupCalm extends Octo{
     }
 
 
+    public boolean lookForFire(WorldModel world){
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(this.getPosition().x + 1, this.getPosition().y));
+        points.add(new Point(this.getPosition().x - 1, this.getPosition().y));
+        points.add(new Point(this.getPosition().x - 1, this.getPosition().y -1));
+        points.add(new Point(this.getPosition().x + 1, this.getPosition().y +1));
+        points.add(new Point(this.getPosition().x - 1, this.getPosition().y +1));
+        points.add(new Point(this.getPosition().x + 1, this.getPosition().y -1));
+        points.add(new Point(this.getPosition().x, this.getPosition().y -1));
+        points.add(new Point(this.getPosition().x, this.getPosition().y +1));
+
+        for(Point p: points){
+            Optional<Entity> maybeFire = world.getOccupant(p);
+            if(!(maybeFire.equals(Optional.empty()))){
+                if(maybeFire.get() instanceof Fire){
+                    System.out.println("panic");
+//                this.panic(world, scheduler);
+//                    panic = true;
+                    return true;
+                }
+            }
+
+        }
+        return false;
+
+
+    }
 
 
 

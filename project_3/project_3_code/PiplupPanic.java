@@ -27,7 +27,7 @@ public class PiplupPanic extends Octo{
 //                ((activeEntity) fullTarget.get()).scheduleActions(scheduler, world, imageStore);
 
                 //transform to unfull
-                this.transformFull(world, scheduler, imageStore);
+                this.calmDown(world, scheduler, imageStore);
             }
             else
             {
@@ -68,8 +68,8 @@ public class PiplupPanic extends Octo{
         }
     }
 
-    private void transformFull(WorldModel world,
-                               EventScheduler scheduler, ImageStore imageStore)
+    private void calmDown(WorldModel world,
+                          EventScheduler scheduler, ImageStore imageStore)
     {
 
 

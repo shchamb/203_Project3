@@ -50,9 +50,10 @@ public class Fire extends activeEntity{
             if (world.isOccupied(nextPos)) {
                 scheduler.unscheduleAllEvents(this);
                 world.removeEntity(this);
-            } else {
+            }
 
 
+            else {
                 Fire f = new Fire("fire", nextPos, this.dest, imageStore.getImageList(Fire.FIRE_KEY));
                 world.removeEntity(this);
                 f.beFire(world, imageStore);

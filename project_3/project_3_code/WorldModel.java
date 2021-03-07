@@ -119,6 +119,8 @@ final class WorldModel
                return parseCharmander(properties, imageStore);
             case Fire.FIRE_KEY:
                return parseFire(properties, imageStore);
+            case ho_oh.HO_OH_KEY:
+               return parseHO_OH(properties, imageStore);
          }
       }
 
@@ -207,6 +209,23 @@ final class WorldModel
       }
 
       return properties.length == Obstacle.OBSTACLE_NUM_PROPERTIES;
+   }
+
+   private boolean parseHO_OH(String [] properties, ImageStore imageStore)
+   {
+      if (properties.length == ho_oh.HO_OH_NUM_PROPERTIES)
+      {
+         Point pt = new Point(
+                 Integer.parseInt(properties[ho_oh.HO_OH_COL]),
+                 Integer.parseInt(properties[ho_oh.HO_OH_ROW]));
+
+
+         ho_oh entity = new ho_oh(properties[ho_oh.HO_OH_ID],
+                 pt, imageStore.getImageList(ho_oh.HO_OH_KEY));
+         tryAddEntity(entity);
+      }
+
+      return properties.length == ho_oh.HO_OH_NUM_PROPERTIES;
    }
 
    private boolean parseFish(String [] properties, ImageStore imageStore)

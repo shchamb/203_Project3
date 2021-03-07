@@ -88,23 +88,32 @@ public class PiplupPanic extends Octo{
     //original as used by octo
     public Point nextPosition(WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz,
-                this.getPosition().y);
 
-        if (horiz == 0 || world.isOccupied(newPos))
-        {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x,
-                    this.getPosition().y + vert);
+        SingleStepPathingStrategy s = new SingleStepPathingStrategy();
+        List<Point> newPos = s.computePath(this.getPosition(), destPos, p -> !world.isOccupied(p), PathingStrategy.DIAGONAL_CARDINAL_NEIGHBORS);
 
-            if (vert == 0 || world.isOccupied(newPos))
-            {
-                newPos = this.getPosition();
-            }
+        if(newPos.toArray().length > 0){
+            return newPos.get(0);
         }
+        return this.getPosition();
 
-        return newPos;
+//        int horiz = Integer.signum(destPos.x - this.getPosition().x);
+//        Point newPos = new Point(this.getPosition().x + horiz,
+//                this.getPosition().y);
+//
+//        if (horiz == 0 || world.isOccupied(newPos))
+//        {
+//            int vert = Integer.signum(destPos.y - this.getPosition().y);
+//            newPos = new Point(this.getPosition().x,
+//                    this.getPosition().y + vert);
+//
+//            if (vert == 0 || world.isOccupied(newPos))
+//            {
+//                newPos = this.getPosition();
+//            }
+//        }
+//
+//        return newPos;
     }
 
 

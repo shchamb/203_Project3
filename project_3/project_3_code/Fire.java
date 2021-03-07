@@ -85,9 +85,10 @@ public class Fire extends activeEntity{
                         new activityAction(f, world, imageStore),
                         nextPeriod);
                 if(rand.nextInt(15) < 1){
-                    Caterpie cat = new Caterpie("caterpie", oldPos, imageStore.getImageList("caterpie"));
+                    Caterpie cat = new Caterpie("caterpie", oldPos, imageStore.getImageList("caterpie"), 700, 10);
                     world.addEntity(cat);
                     System.out.println("caterpie");
+                    cat.scheduleActions(scheduler, world, imageStore);
                 }
             }
         }
@@ -98,12 +99,13 @@ public class Fire extends activeEntity{
             world.removeEntity(this);
 
             if(rand.nextInt(15) < 1){
-                Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"));
+                Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"), 700, 10);
                 world.addEntity(cat);
                 System.out.println("caterpie");
+                cat.scheduleActions(scheduler, world, imageStore);
             }
 
-//            cat.scheduleActions(scheduler, world, imageStore);
+
         }
 
 

@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class octoNotFull extends Octo{
+public class PiplupCalm extends Octo{
 
     Random rand = new Random();
+    public boolean panic = false;
 
-    public octoNotFull(String id, Point position, List<PImage> images, int resourceLimit,
-                       int resourceCount, int actionPeriod, int animationPeriod) {
+    public PiplupCalm(String id, Point position, List<PImage> images, int resourceLimit,
+                      int resourceCount, int actionPeriod, int animationPeriod) {
         super(id, position,images,  resourceLimit, resourceCount, actionPeriod, animationPeriod);
 
 
@@ -17,22 +18,26 @@ public class octoNotFull extends Octo{
 
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        Optional<Entity> notFullTarget = world.findNearest(this.getPosition(),
-                Fish.class);
+//        Optional<Entity> notFullTarget = world.findNearest(this.getPosition(),
+//                Fish.class);
+        Point target = new Point(rand.nextInt(40), rand.nextInt(30));
+//
+        if (!this.moveToPoint(world, target, scheduler) ||
+                !this.transformNotFull(world, scheduler, imageStore)) {
 
-        if (!notFullTarget.isPresent() ||
-                !this.moveTo(world, notFullTarget.get(), scheduler) ||
-                !this.transformNotFull(world, scheduler, imageStore))
-        {
+
             scheduler.scheduleEvent(this,
                     new activityAction(this, world, imageStore),
                     this.getActionPeriod());
         }
+
     }
 
 
-    public boolean moveTo(WorldModel world,
-                                  Entity target, EventScheduler scheduler)
+
+
+    public boolean moveToPoint(WorldModel world,
+                          Point target, EventScheduler scheduler)
     {
 
         Optional<Entity> maybeFireLeft = world.getOccupant(new Point(this.getPosition().x + 1, this.getPosition().y));
@@ -40,8 +45,9 @@ public class octoNotFull extends Octo{
         if(!(maybeFireLeft.equals(Optional.empty()))){
             if(maybeFireLeft.get() instanceof Fire){
                 System.out.println("panic");
-                this.panic(world, scheduler);
-                return false;
+//                this.panic(world, scheduler);
+                panic = true;
+                return true;
             }
 
 
@@ -49,24 +55,21 @@ public class octoNotFull extends Octo{
         if(!(maybeFireRight.equals(Optional.empty()))){
             if(maybeFireRight.get() instanceof Fire){
                 System.out.println("panic");
-                this.panic(world, scheduler);
-                return false;
+                panic = true;
+//                this.panic(world, scheduler);
+                return true;
             }
 
 
         }
-        if (this.getPosition().adjacent(target.getPosition()))
+        if (this.getPosition().adjacent(target))
         {
-
-            this.incrementResourceCount();
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
 
             return true;
         }
         else
         {
-            Point nextPos = nextPosition( world, target.getPosition());
+            Point nextPos = nextPosition( world, target);
 
             if (!this.getPosition().equals(nextPos))
             {
@@ -85,12 +88,12 @@ public class octoNotFull extends Octo{
     private boolean transformNotFull(WorldModel world,
                                      EventScheduler scheduler, ImageStore imageStore)
     {
-        if (this.getResourceCount() >= this.getResourceLimit())
+        if (this.panic == true)
         {
 
 
-            Octo octo = new octoFullActivity(this.getId(), this.getPosition(), this.getImages(),  this.getResourceLimit(), 0,
-                    this.getActionPeriod(), this.getAnimationPeriod());
+            Octo octo = new PiplupPanic(this.getId(), this.getPosition(), imageStore.getImageList("octoFull"),  this.getResourceLimit(), 0,
+                    this.getActionPeriod() / 8, this.getAnimationPeriod() / 4);
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);
@@ -127,32 +130,23 @@ public class octoNotFull extends Octo{
         return newPos;
     }
 
-    public boolean panic(WorldModel world, EventScheduler scheduler){
-        int oldActionPeriod = this.getActionPeriod();
-        int oldAnimationPeriod = this.getAnimationPeriod();
-        this.setAnimationPeriod(this.getAnimationPeriod() / 2);
-        this.setActionPeriod(this.getActionPeriod() / 2);
-        Point destPos = new Point(rand.nextInt( 40), rand.nextInt( 40));
-        Point pos = this.nextPosition(world, destPos);
-        if (this.getPosition().adjacent(destPos))
-        {
-            this.setActionPeriod(oldActionPeriod);
-            this.setAnimationPeriod(oldAnimationPeriod);
-            return true;
-        }
-        else if (!this.getPosition().equals(pos))
-        {
-            Optional<Entity> occupant = world.getOccupant(pos);
-            if (occupant.isPresent())
-            {
-                scheduler.unscheduleAllEvents(occupant.get());
-            }
 
-            world.moveEntity(this, pos);
-        }
+
+
+
+
+
+
+
+
+
+
+
+    public boolean moveTo(WorldModel world,
+                          Entity target, EventScheduler scheduler)
+    {
+
         return false;
-
     }
-
 
 }

@@ -361,6 +361,46 @@ final class WorldModel
 
       return nearestEntity(ofType, pos);
    }
+
+//   public Optional<Background> findNearestGrass(Point pos){
+////      List<Background> ofType = new LinkedList<>();
+////      for(Background[] b: background){
+////         for(Background p: b){
+////            if(p.getId() == "grass"){
+////               ofType.add(p);
+////            }
+////         }
+////      }
+////      return nearestBackground(ofType, pos);
+//      List<Point> ofType = new LinkedList<>();
+//
+//   }
+//
+//   public Optional<Background> nearestBackground(List<Background> b, Point pos){
+//      if (b.isEmpty())
+//      {
+//         return Optional.empty();
+//      }
+//      else
+//      {
+//         Background nearest = b.get(0);
+//         int nearestDistance = nearest.getPosition().distanceSquared(pos);
+//
+//         for (Background other : b)
+//         {
+//            int otherDistance = other.getPosition().distanceSquared(pos);
+//
+//            if (otherDistance < nearestDistance)
+//            {
+//               nearest = other;
+//               nearestDistance = otherDistance;
+//            }
+//         }
+//
+//         return Optional.of(nearest);
+//      }
+//
+//   }
    /*
       Assumes that there is no entity currently occupying the
       intended destination cell.

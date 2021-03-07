@@ -1,4 +1,6 @@
 import processing.core.PImage;
+
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import java.util.List;
@@ -48,6 +50,17 @@ public class Fire extends activeEntity{
             Point nextPos = path.get(0);
 
             if (world.isOccupied(nextPos)) {
+
+                Optional<Entity> maybePiplup = world.getOccupant(nextPos);
+                if(!(maybePiplup.equals(Optional.empty()))){
+                    if(maybePiplup.get() instanceof PiplupCalm){
+//                        System.out.println("panic");
+//                this.panic(world, scheduler);
+                        ((PiplupCalm) maybePiplup.get()).panic = true;
+
+                    }
+                }
+
                 scheduler.unscheduleAllEvents(this);
                 world.removeEntity(this);
             }

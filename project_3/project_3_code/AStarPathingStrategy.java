@@ -17,8 +17,7 @@ class AStarPathingStrategy
     public HashMap<Point, Integer> closed;
 
     public List<Point> computePath(Point start, Point end,
-                                   Predicate<Point> canPassThrough,
-                                   BiPredicate<Point, Point> withinReach,
+                                   Predicate<Point> canPassThrough1,
                                    Function<Point, Stream<Point>> potentialNeighbors)
     {
         this.frontier = new PriorityQueue<Node>();
@@ -27,16 +26,16 @@ class AStarPathingStrategy
         Node.setGoal(end); // gives us our end goal
         Node current = new Node(start, null, 0); // initial set up of node
 
-        update_frontier(current, canPassThrough, potentialNeighbors);
+        update_frontier(current, canPassThrough1, potentialNeighbors);
 
         while (current.h != 0){
-
+//            System.out.println(current);
             closed.put(current.pos, 0);
             current = this.frontier.poll();
             if (current == null){
                 return new LinkedList<>(); // return an empty list if we can't reach goal
             }
-            update_frontier(current, canPassThrough, potentialNeighbors);
+            update_frontier(current, canPassThrough1, potentialNeighbors);
              //so we can't go back to current
         }
 
@@ -54,7 +53,7 @@ class AStarPathingStrategy
 //        System.out.println(node);
         List<Point> potential_neighbors = possible_neighbors
                 .apply(node.pos)
-                .filter(canPassThrough)
+//                .filter(canPassThrough)
                 .collect(Collectors.toList());
 
 

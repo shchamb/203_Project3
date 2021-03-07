@@ -16,7 +16,6 @@ interface PathingStrategy
     */
    List<Point> computePath(Point start, Point end,
       Predicate<Point> canPassThrough,
-      BiPredicate<Point, Point> withinReach,
       Function<Point, Stream<Point>> potentialNeighbors);
 
   public static final Function<Point, Stream<Point>> CARDINAL_NEIGHBORS =

@@ -13,6 +13,7 @@ public class octoFullActivity  extends Octo{
 
     public void executeActivity(WorldModel world,
                                          ImageStore imageStore, EventScheduler scheduler){
+
             Optional<Entity> fullTarget = world.findNearest(this.getPosition(),
                     Atlantis.class);
 

@@ -281,12 +281,14 @@ final class WorldModel
 
    public boolean withinBounds(Point pos)
    {
+
       return pos.y >= 0 && pos.y < this.numRows &&
               pos.x >= 0 && pos.x < this.numCols;
    }
 
    public boolean isOccupied(Point pos)
    {
+
       return withinBounds(pos) &&
               getOccupancyCell(pos) != null;
    }

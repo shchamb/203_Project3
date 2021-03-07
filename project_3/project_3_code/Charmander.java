@@ -78,7 +78,7 @@ public class Charmander extends Entity{
 //                break;
 //        }
 //    }
-    public void makeFire(ImageStore imageStore, int dirX, int dirY){
+    public void makeFire(ImageStore imageStore, int dirX, int dirY, EventScheduler scheduler){
         if(this.direction == "right"){
 //            Fire f = new Fire("fire", new Point(this.getPosition().x+1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
 //            Fire f = new Fire("fire",new Point(this.getPosition().x + 1, this.getPosition().y) , new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
@@ -86,6 +86,8 @@ public class Charmander extends Entity{
             System.out.println("Mouse Click: " + ' ' + new Point(dirX, dirY));
             Fire f = new Fire("fire", new Point(this.getPosition().x + 1, this.getPosition().y), new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
                 f.beFire(world, imageStore);
+                f.scheduleActions(scheduler, world, imageStore);
+
 //            Background.melt(world, new Point(dirX, dirY), imageStore);
             }else{
 //            Fire f = new Fire("fire", new Point(this.getPosition().x-1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
@@ -93,7 +95,10 @@ public class Charmander extends Entity{
                 f.setImageIndex(1);
                 f.beFire(world, imageStore);
 //                Background.melt(world, new Point(dirX, dirY), imageStore);
+                f.scheduleActions(scheduler, world, imageStore);
             }
+
+
         }
 
 

@@ -12,6 +12,8 @@ public class Fire extends activeEntity{
     public static final int FIRE_ANIMATION_PERIOD = 3;
     public int actionPeriod = 11;
     public Point dest;
+
+    private PathingStrategy strategy = new AStarPathingStrategy();
 //    public int animationPeriod = 10;
 //    public Point pos;
 
@@ -23,10 +25,8 @@ public class Fire extends activeEntity{
     }
 
     public void beFire(WorldModel world, ImageStore imageStore){
-        System.out.println("Fire!");
         world.addEntity(this);
         Background.melt(world, new Point(this.getPosition().x, this.getPosition().y), imageStore);
-
 
 //        Point pt = this.getPosition();
 //        String id = "grass";
@@ -37,12 +37,46 @@ public class Fire extends activeEntity{
     }
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         System.out.println("I'm fire");
-        scheduler.unscheduleAllEvents(this);
-        world.removeEntity(this);
+        long nextPeriod = super.getActionPeriod();
+
+        List<Point> path = strategy.computePath(this.getPosition(), this.dest,
+               p -> world.isOccupied(p),
+                PathingStrategy.CARDINAL_NEIGHBORS);
+
+        if (path.size() != 0) {
+            System.out.println(path);
+            Point nextPos = path.get(0);
+
+            if (world.isOccupied(nextPos)) {
+                scheduler.unscheduleAllEvents(this);
+                world.removeEntity(this);
+            } else {
+
+
+                Fire f = new Fire("fire", nextPos, this.dest, imageStore.getImageList(Fire.FIRE_KEY));
+                world.removeEntity(this);
+                f.beFire(world, imageStore);
+
+                scheduler.scheduleEvent(f,
+                        new activityAction(f, world, imageStore),
+                        nextPeriod);
+            }
+        }
+
+        else{
+            scheduler.unscheduleAllEvents(this);
+            world.removeEntity(this);
+        }
+
+
+
+
+
     }
 
     public void scheduleActions(EventScheduler scheduler,
                                 WorldModel world, ImageStore imageStore){
+
         scheduler.scheduleEvent(this,
                 new activityAction(this, world, imageStore),
                 this.actionPeriod);

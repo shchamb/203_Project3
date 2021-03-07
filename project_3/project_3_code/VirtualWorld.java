@@ -141,7 +141,7 @@ public final class VirtualWorld
 //      System.out.println(pos);
 //      System.out.println(mouseX);
 //      System.out.println(mouseY);
-      charmy.makeFire(imageStore,  view.getViewport().getCol() + (mouseX / 64), view.getViewport().getRow() + (mouseY / 64));
+      charmy.makeFire(imageStore,  view.getViewport().getCol() + (mouseX / 64), view.getViewport().getRow() + (mouseY / 64), this.scheduler);
 //      charmy.makeFire(imageStore, mouseX, mouseY);
 //      System.out.println("clicked");
    }

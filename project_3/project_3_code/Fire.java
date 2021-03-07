@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.Random;
@@ -85,7 +86,12 @@ public class Fire extends activeEntity{
                         new activityAction(f, world, imageStore),
                         nextPeriod);
                 if(rand.nextInt(15) < 1){
-                    Caterpie cat = new Caterpie("caterpie", oldPos, imageStore.getImageList("caterpie"), 700, 10);
+                    Point ho_oh_dest = world.findNearest(this.getPosition(), ho_oh.class).get().getPosition();
+                    Caterpie cat = new Caterpie("caterpie", oldPos, ho_oh_dest,
+                            new LinkedList<>(),
+                            imageStore.getImageList("caterpie"),
+                            700, 10,
+                            world);
                     world.addEntity(cat);
                     System.out.println("caterpie");
                     cat.scheduleActions(scheduler, world, imageStore);
@@ -99,7 +105,12 @@ public class Fire extends activeEntity{
             world.removeEntity(this);
 
             if(rand.nextInt(15) < 1){
-                Caterpie cat = new Caterpie("caterpie", this.dest, imageStore.getImageList("caterpie"), 700, 10);
+                Point ho_oh_dest = world.findNearest(this.getPosition(), ho_oh.class).get().getPosition();
+
+                Caterpie cat = new Caterpie("caterpie", this.dest, ho_oh_dest, new LinkedList(),
+                        imageStore.getImageList("caterpie"),
+                        700, 10,
+                        world);
                 world.addEntity(cat);
                 System.out.println("caterpie");
                 cat.scheduleActions(scheduler, world, imageStore);

@@ -21,6 +21,7 @@ public class depthFirstSearch implements PathingStrategy {
         System.out.println(end);
         //main loop
         while(true){
+            System.out.println(currPos);
             LinkedList<Point> directions = new LinkedList<>();
 
             List<Point> possible_directions = potentialNeighbors
@@ -41,9 +42,11 @@ public class depthFirstSearch implements PathingStrategy {
             //if there is no where we can go
             if (directions.size() == 0){
                 int lastIndex = path.size() - 1;
+
                 path.remove(lastIndex);
                 currPos = path.get(lastIndex - 1); //get last element from java path
                 continue; //and we try again from previous point
+
             }
 
             currPos = directions.get(0);

@@ -40,7 +40,11 @@ public class Fire extends activeEntity{
 
     public void beFire(WorldModel world, ImageStore imageStore){
         world.addEntity(this);
-        Background.melt(world, new Point(this.getPosition().x, this.getPosition().y), imageStore);
+        Point position = new Point(this.getPosition().x, this.getPosition().y);
+        if( world.withinBounds(position)){
+            Background.melt(world, position, imageStore);
+        }
+
 
 //        Point pt = this.getPosition();
 //        String id = "grass";

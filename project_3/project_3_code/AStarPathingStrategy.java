@@ -39,7 +39,7 @@ class AStarPathingStrategy
              //so we can't go back to current
         }
 
-        current.path.remove(current.path.size()-1);
+
         return current.path;
 
 

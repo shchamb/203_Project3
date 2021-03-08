@@ -1,10 +1,11 @@
 import java.nio.file.Path;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 public class depthFirstSearch implements PathingStrategy {
@@ -13,67 +14,49 @@ public class depthFirstSearch implements PathingStrategy {
                                    Predicate<Point> canPassThrough,
                                    Function<Point, Stream<Point>> potentialNeighbors) {
 
-        Point currPos = start;
-        LinkedList<Point> path = new LinkedList<>();
-        LinkedList<Point> searched = new LinkedList<>();
+        Point pos = start;
+        List<Point> path = new ArrayList<>();
+        List<Point> searched = new ArrayList<>();
+        boolean goalFound = false;
 
-
-        System.out.println(end);
-        //main loop
         while(true){
-            System.out.println(currPos);
-            LinkedList<Point> directions = new LinkedList<>();
+
+            path.add(0, pos);
+            searched.add(0, pos);
 
             List<Point> possible_directions = potentialNeighbors
-                    .apply(currPos)
+                    .apply(pos)
                     .filter(canPassThrough)
                     .collect(Collectors.toList()); // gives us possible neighbors to visit
+            boolean stuck = true;
+            List<Point> new_possible_directions = new ArrayList(possible_directions);
 
-            //make sure the only directions we want have not been searched yet
-            for (Point p : possible_directions){
-                if (!searched.contains(p)){
-                    directions.add(p);
+            for(Point p: possible_directions){
+                for(Point d: searched){
+                    if(p.equals(d)){
+                        new_possible_directions.remove(p);
+                    }
                 }
-
             }
-//            System.out.println(currPos);
-//            directions = directions.stream().filter(p -> !searched.contains(p)).collect(Collectors.toList()); // make sure
-
-            //if there is no where we can go
-            if (directions.size() == 0){
-                int lastIndex = path.size() - 1;
-
-                path.remove(lastIndex);
-                currPos = path.get(lastIndex - 1); //get last element from java path
-                continue; //and we try again from previous point
-
+            for(Point p: new_possible_directions){
+                    searched.add(p);
+                    pos = p;
+                    stuck = false;
+                    break;
             }
-
-            currPos = directions.get(0);
-
-            searched.add(currPos); //we've moved, we are adding it to searched
-            path.add(currPos); //we are adding it to path
-            System.out.println("curr: " + currPos + " End: " + end);
-            if (currPos.x == end.x && currPos.y == end.y){
-                System.out.println("end");
+            if(pos.adjacent(end)){
+                path.add(0, pos);
                 break;
-            } //we've found our path
-
-
+            }
+            if(stuck){
+                path.remove(0);
+                pos = path.get(0);
+                path.remove(0);
+            }
         }
 
-        System.out.println(path);
-
+        Collections.reverse(path);
+        path.remove(0);
         return path;
-
-
-
-
-
-
     }
-
-
-
-
 }

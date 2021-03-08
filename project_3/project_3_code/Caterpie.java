@@ -26,7 +26,7 @@ public class Caterpie extends movingEntity {
         PathingStrategy strategy = new depthFirstSearch();
 
         this.path = strategy.computePath(this.getPosition(), dest,
-                p -> world.withinBounds(p),
+                p -> world.withinBounds(p) && !(world.isObstacle(p)),
                 PathingStrategy.CARDINAL_NEIGHBORS);}
         //we just take the old path and make it ours
         else{
@@ -40,94 +40,67 @@ public class Caterpie extends movingEntity {
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
 
-        Point dest = world.findNearest(this.getPosition(), ho_oh.class).get().getPosition();
-        System.out.println(dest);
+        Optional<Entity> caterpieTarget = world.findNearest(this.getPosition(), ho_oh.class);
         long nextPeriod = super.getActionPeriod();
 
+        if (caterpieTarget.isPresent()) {
+            Point tgtPos = caterpieTarget.get().getPosition();
+            Point oldPos = this.getPosition();
+
+            if (this.moveTo(world, caterpieTarget.get(), scheduler)) {
 
 
+                nextPeriod += super.getActionPeriod();
 
-
-
-
-        if (this.path.size() != 0) {
-            System.out.println(this.path);
-            Point nextPos = this.path.get(0);
-            this.path.remove(0); //Were moving here, we remove this position
-//            if (world.isOccupied(nextPos)) {
-//
-//                Optional<Entity> maybePiplup = world.getOccupant(nextPos);
-//                if(!(maybePiplup.equals(Optional.empty()))){
-//                    if(maybePiplup.get() instanceof PiplupCalm){
-////                        System.out.println("panic");
-////                this.panic(world, scheduler);
-//                        ((PiplupCalm) maybePiplup.get()).panic = true;
-//
-//                    }
-//                }
-//
-//                scheduler.unscheduleAllEvents(this);
-//                world.removeEntity(this);
-//            }
-
-
-
-                Caterpie c = new Caterpie("caterpie", nextPos, this.dest,
-                        this.path,
-                        imageStore.getImageList("caterpie"),
-                        700, 10,
-                        world);
-                Point oldPos = this.getPosition();
                 world.removeEntity(this);
-                world.addEntity(c);
+                Quake quake = new Quake(Quake.QUAKE_ID, oldPos, imageStore.getImageList(Quake.QUAKE_KEY),
+                        Quake.QUAKE_ACTION_PERIOD, Quake.QUAKE_ANIMATION_PERIOD);
 
 
 
-
-
-                scheduler.scheduleEvent(c,
-                        new activityAction(c, world, imageStore),
-                        nextPeriod);
-
-
+                world.addEntity(quake);
+                quake.scheduleActions(scheduler, world, imageStore);
+            }
         }
 
-        else{
-            scheduler.unscheduleAllEvents(this);
-
-            world.removeEntity(this);
-
-//            if(rand.nextInt(15) < 1){
-//                Caterpie cat = new Caterpie("caterpie", dest, imageStore.getImageList("caterpie"), 700, 10);
-//                world.addEntity(cat);
-//                System.out.println("caterpie");
-//                cat.scheduleActions(scheduler, world, imageStore);
-//            }
-
-
-        }
+        scheduler.scheduleEvent(this,
+                new activityAction(this, world, imageStore),
+                nextPeriod);
     }
 
     @Override
     public Point nextPosition(WorldModel world, Point destPos) {
-        int horiz = Integer.signum(destPos.x - this.getPosition().x);
-        Point newPos = new Point(this.getPosition().x + horiz,
-                this.getPosition().y);
 
-        Optional<Entity> occupant = world.getOccupant(newPos);
-
-        if (horiz == 0 ||
-                (occupant.isPresent() && !(occupant.get() instanceof Fish))) {
-            int vert = Integer.signum(destPos.y - this.getPosition().y);
-            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
-            occupant = world.getOccupant(newPos);
-
-            if (vert == 0 ||
-                    (occupant.isPresent() && !(occupant.get() instanceof Fish))) {
-                newPos = this.getPosition();
+        if(this.path.size() > 0){
+            boolean is = world.isOccupiedByMoveable(this.path.get(0));
+//            System.out.println(is);
+            if(!is){
+//                System.out.println("he");
+                Point n = path.remove(0);
+                return n;
             }
+
         }
-        return newPos;
+        return this.getPosition();
+
+//        int horiz = Integer.signum(destPos.x - this.getPosition().x);
+//        Point newPos = new Point(this.getPosition().x + horiz,
+//                this.getPosition().y);
+//
+//        Optional<Entity> occupant = world.getOccupant(newPos);
+//
+//        if (horiz == 0 ||
+//                (occupant.isPresent() && !(occupant.get() instanceof Fish))) {
+//            int vert = Integer.signum(destPos.y - this.getPosition().y);
+//            newPos = new Point(this.getPosition().x, this.getPosition().y + vert);
+//            occupant = world.getOccupant(newPos);
+//
+//            if (vert == 0 ||
+//                    (occupant.isPresent() && !(occupant.get() instanceof Fish))) {
+//                newPos = this.getPosition();
+//            }
+//        }
+//        return newPos;
     }
 
     @Override

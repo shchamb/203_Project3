@@ -312,6 +312,29 @@ final class WorldModel
               getOccupancyCell(pos) != null;
    }
 
+   public boolean isObstacle(Point pos){
+      boolean ob = false;
+      Optional<Entity> maybeOb = getOccupant(pos);
+      if(!maybeOb.equals(Optional.empty())){
+         if(maybeOb.get() instanceof Obstacle){
+            ob = true;
+         }
+      }
+
+      return withinBounds(pos) && ob;
+   }
+
+   public boolean isOccupiedByMoveable(Point pos){
+      boolean mo = false;
+      Optional<Entity> maybeOb = getOccupant(pos);
+      if(!maybeOb.equals(Optional.empty())){
+         if(maybeOb.get() instanceof movingEntity || maybeOb.get() instanceof Charmander ){
+            mo = true;
+         }
+      }
+      return mo;
+   }
+
 
 
 

@@ -90,7 +90,7 @@ public class Fire extends activeEntity{
                     Caterpie cat = new Caterpie("caterpie", oldPos, ho_oh_dest,
                             new LinkedList<>(),
                             imageStore.getImageList("caterpie"),
-                            700, 10,
+                            200, 10,
                             world);
                     world.addEntity(cat);
                     System.out.println("caterpie");
@@ -109,7 +109,7 @@ public class Fire extends activeEntity{
 
                 Caterpie cat = new Caterpie("caterpie", this.dest, ho_oh_dest, new LinkedList(),
                         imageStore.getImageList("caterpie"),
-                        700, 10,
+                        200, 10,
                         world);
                 world.addEntity(cat);
                 System.out.println("caterpie");

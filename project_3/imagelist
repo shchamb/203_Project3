@@ -1,4 +1,4 @@
-atlantis images/big_atlantis0.bmp 255 255 255 0
+atlantis images/pokestop.png 255 255 255 0
 atlantis images/big_atlantis1.bmp
 atlantis images/big_atlantis2.bmp
 atlantis images/big_atlantis3.bmp
@@ -38,7 +38,7 @@ caterpie images/CB4.bmp 255 255 255 0
 caterpie images/CB5.bmp 255 255 255 0
 fire images/fireball.bmp 255 255 255 0
 fire images/fireballLeft.bmp 255 255 255 0
-obstacle images/big_rock.bmp
+obstacle images/snorlax.png
 fish images/big_fish.bmp 255 255 255 0
 quake images/c1.bmp 255 255 255 0
 quake images/c2.bmp 255 255 255 0

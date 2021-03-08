@@ -6,9 +6,8 @@
     touches "melts" and turns into a grass background.
 3. what the affected entities should do
     When a fireball gets too close to a PiplupCalm entity, they become a PiplupPanic and start running
-    around frantically(their actionPeriod is reduced). They also turn red and if they walk across
-    a grass background, they will turn it back into a snow background. Piplups move with a Single Step pathing
-    algorithm.
+    around frantically(their actionPeriod is reduced). They also turn red. PiplupCalms will Single Step Pathing to
+    a grass background to change it back to snow, and they will walk around to random spots if there is no grass.
 4. what the new entity is and how it should behave
     Whenever a fireball melts snow or moves over grass, there is a chance that a Caterpie entity will
     spawn from the grass after being freed from under the snow. This new Caterpie uses Depth First Search
@@ -41,48 +40,3 @@
 
 
 
-        public Optional<Point> findNearestGrass(Point pos){
-        //      List<Background> ofType = new LinkedList<>();
-        //      for(Background[] b: background){
-        //         for(Background p: b){
-        //            if(p.getId() == "grass"){
-        //               ofType.add(p);
-        //            }
-        //         }
-        //      }
-        //      return nearestBackground(ofType, pos);
-              List<Point> ofType = new LinkedList<>();
-              for(int i = 0; i < numCols; i++){
-                 for(int j = 0; j < numRows; j++){
-                    Point p = new Point(i, j);
-                    Background b = getBackgroundCell(p);
-                    if(b.getId() == "grass"){
-                       ofType.add(p);
-                    }
-                 }
-              }
-              return nearestBackground(ofType, pos);
-
-           }
-
-           public Optional<Point> nearestBackground(List<Point> b, Point pos){
-              if(b.isEmpty()){
-                 return Optional.empty();
-              }
-              Point nearest = b.get(0);
-              int nearestDistance = nearest.distanceSquared(pos);
-
-              for (Point other : b)
-              {
-                 int otherDistance = other.distanceSquared(pos);
-
-                 if (otherDistance < nearestDistance)
-                 {
-                    nearest = other;
-                    nearestDistance = otherDistance;
-                 }
-              }
-
-              return Optional.of(nearest);
-
-           }

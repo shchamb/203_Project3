@@ -23,6 +23,9 @@ public class PiplupCalm extends Octo{
 //        Optional<Entity> notFullTarget = world.findNearest(this.getPosition(),
 //                Fish.class);
         Point target = null;
+        if(this.lookForFire(world)){
+            panic = true;
+        }
         Optional<Point> grassTarget = world.findNearestGrass(this.getPosition());
         if(!grassTarget.equals(Optional.empty())){
             target = grassTarget.get();

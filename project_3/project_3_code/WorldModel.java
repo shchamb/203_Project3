@@ -521,8 +521,10 @@ final class WorldModel
    public void setOccupancyCell(Point pos,
                                        Entity entity)
    {
-      this.occupancy[pos.y][pos.x] = entity;
-   }
+      if (this.withinBounds(pos)) {
+         this.occupancy[pos.y][pos.x] = entity;
+      }
+      }
 
    private Background getBackgroundCell(Point pos)
    {

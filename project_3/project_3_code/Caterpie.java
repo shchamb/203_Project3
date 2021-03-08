@@ -115,7 +115,7 @@ public class Caterpie extends movingEntity {
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
-                if (world.isOccupied(nextPos)) {
+                if (world.withinBounds(nextPos)) {
                     world.moveEntity(this, nextPos);
                 }
             }

@@ -32,6 +32,18 @@ obstacle obstacle_13_22 13 22
 obstacle obstacle_14_23 14 23
 obstacle obstacle_14_24 14 24
 obstacle obstacle_11_21 11 21
+obstacle obstacle_10_23 30 15
+obstacle obstacle_10_24 31 14
+obstacle obstacle_11_24 35 24
+obstacle obstacle_11_25 18 25
+obstacle obstacle_12_25 38 20
+obstacle obstacle_13_26 16 16
+obstacle obstacle_12_26 12 30
+obstacle obstacle_13_22 13 13
+obstacle obstacle_14_23 14 10
+obstacle obstacle_14_23 38 7
+obstacle obstacle_14_24 36 9
+obstacle obstacle_11_21 34 8
 octo octo_12_23 12 23 2 954 100
 octo octo_6_25 6 25 2 930 100
 octo octo_17_22 17 22 2 982 100

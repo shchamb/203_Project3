@@ -10,6 +10,8 @@ public class ho_oh extends Entity{
     public static final int HO_OH_ROW = 3;
 
 
+
+
     private int tributes;
 
     public ho_oh(String id, Point position, List<PImage> images) {

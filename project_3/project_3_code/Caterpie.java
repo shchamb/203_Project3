@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -16,23 +17,21 @@ public class Caterpie extends movingEntity {
 
     private List<Point> path;
 
-    public Caterpie(String id, Point position, Point dest, List path, List<PImage> images, int actionPeriod, int animationPeriod, WorldModel world) {
+    public Caterpie(String id, Point position,
+                    List<PImage> images,
+                    int actionPeriod, int animationPeriod,
+                    WorldModel world) {
         super(id, position, images, actionPeriod, animationPeriod);
 
 
-        this.dest = dest;
+        this.dest = new Point(10,10);
         //if empty path given, make the path from scratch
-        if (path.size() == 0){
         PathingStrategy strategy = new depthFirstSearch();
 
         this.path = strategy.computePath(this.getPosition(), dest,
                 p -> world.withinBounds(p) && !(world.isObstacle(p)),
-                PathingStrategy.CARDINAL_NEIGHBORS);}
+                PathingStrategy.CARDINAL_NEIGHBORS);
         //we just take the old path and make it ours
-        else{
-            this.path = path;
-        }
-
 
     }
 
@@ -41,6 +40,7 @@ public class Caterpie extends movingEntity {
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
 
         Optional<Entity> caterpieTarget = world.findNearest(this.getPosition(), ho_oh.class);
+
         long nextPeriod = super.getActionPeriod();
 
         if (caterpieTarget.isPresent()) {

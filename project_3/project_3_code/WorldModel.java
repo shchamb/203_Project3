@@ -137,7 +137,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
                  Integer.parseInt(properties[Charmander.CHARMY_ROW]));
 
-         Charmander entity = entityFactory.createCharmander(pt, imageStore, this);
+         Charmander entity = (Charmander) new charmanderFactory().createEntity(pt);
          this.tryAddEntity(entity);
       }
 
@@ -149,7 +149,10 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
                  Integer.parseInt(properties[Charmander.CHARMY_ROW]));
-         Fire entity = entityFactory.createFire(pt, pt, imageStore);
+
+         Fire entity = (Fire) new fireFactory().createEntity(pt);
+
+         entity.setDest(pt);
 
 //
          this.tryAddEntity(entity);
@@ -180,7 +183,7 @@ final class WorldModel
                  Integer.parseInt(properties[Octo.OCTO_ROW]));
 
 
-         PiplupCalm entity = entityFactory.createPiplupCalm(pt, imageStore);
+         PiplupCalm entity = (PiplupCalm) new piplupCalmFactory().createEntity(pt);
 
 
 
@@ -200,11 +203,9 @@ final class WorldModel
                  Integer.parseInt(properties[Obstacle.OBSTACLE_ROW]));
 
 
-         Obstacle entity = entityFactory.createObstacle(pt, imageStore);
+         Obstacle entity = (Obstacle) new obstacleFactory().createEntity(pt);
 
-//                 new Obstacle(properties[Obstacle.OBSTACLE_ID],
-//                 pt, imageStore.getImageList(Obstacle.OBSTACLE_KEY));
-//         tryAddEntity(entity);
+         tryAddEntity(entity);
       }
 
       return properties.length == Obstacle.OBSTACLE_NUM_PROPERTIES;
@@ -219,8 +220,9 @@ final class WorldModel
                  Integer.parseInt(properties[ho_oh.HO_OH_ROW]));
 
 
-         ho_oh entity = new ho_oh(properties[ho_oh.HO_OH_ID],
-                 pt, imageStore.getImageList(ho_oh.HO_OH_KEY));
+         ho_oh entity = (ho_oh) new ho_ohFactory().createEntity(pt);
+
+
          tryAddEntity(entity);
       }
 
@@ -532,6 +534,7 @@ final class WorldModel
    {
       this.background[pos.y][pos.x] = background;
    }
+
 
 
 }

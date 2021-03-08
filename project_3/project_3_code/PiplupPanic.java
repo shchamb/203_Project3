@@ -74,7 +74,8 @@ public class PiplupPanic extends Octo{
 
 
 
-        Octo octo = entityFactory.createPiplupCalm(this.getPosition(), imageStore);
+        Octo octo = new piplupCalmFactory().createEntity(this.getPosition());
+//                entityFactory.createPiplupCalm(this.getPosition());
 
 
         world.removeEntity(this);

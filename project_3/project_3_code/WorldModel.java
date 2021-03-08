@@ -136,9 +136,8 @@ final class WorldModel
          System.out.println("char");
          Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
                  Integer.parseInt(properties[Charmander.CHARMY_ROW]));
-         Charmander entity = new Charmander("charmy", pt, imageStore.getImageList(Charmander.CHARMY_KEY),
-                 Integer.parseInt(properties[Charmander.CHARMY_ACTION_PERIOD]), Integer.parseInt(properties[Charmander.CHARMY_ANIMATION_PERIOD]), this);
 
+         Charmander entity = entityFactory.createCharmander(pt, imageStore, this);
          this.tryAddEntity(entity);
       }
 
@@ -150,7 +149,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[Charmander.CHARMY_COL]),
                  Integer.parseInt(properties[Charmander.CHARMY_ROW]));
-         Fire entity = new Fire("fire", pt, pt, imageStore.getImageList(Fire.FIRE_KEY));
+         Fire entity = entityFactory.createFire(pt, pt, imageStore);
 
 //
          this.tryAddEntity(entity);
@@ -181,10 +180,8 @@ final class WorldModel
                  Integer.parseInt(properties[Octo.OCTO_ROW]));
 
 
-         PiplupCalm entity = new PiplupCalm(properties[Octo.OCTO_ID],
-                 pt,
-                 imageStore.getImageList(Octo.OCTO_KEY),Integer.parseInt(properties[Octo.OCTO_LIMIT]), 0,
-              Integer.parseInt(properties[Octo.OCTO_ACTION_PERIOD]), Integer.parseInt(properties[Octo.OCTO_ANIMATION_PERIOD]));
+         PiplupCalm entity = entityFactory.createPiplupCalm(pt, imageStore);
+
 
 
 
@@ -203,9 +200,11 @@ final class WorldModel
                  Integer.parseInt(properties[Obstacle.OBSTACLE_ROW]));
 
 
-         Obstacle entity = new Obstacle(properties[Obstacle.OBSTACLE_ID],
-                 pt, imageStore.getImageList(Obstacle.OBSTACLE_KEY));
-         tryAddEntity(entity);
+         Obstacle entity = entityFactory.createObstacle(pt, imageStore);
+
+//                 new Obstacle(properties[Obstacle.OBSTACLE_ID],
+//                 pt, imageStore.getImageList(Obstacle.OBSTACLE_KEY));
+//         tryAddEntity(entity);
       }
 
       return properties.length == Obstacle.OBSTACLE_NUM_PROPERTIES;
@@ -307,6 +306,7 @@ final class WorldModel
 
    public boolean isOccupied(Point pos)
    {
+      System.out.println(pos);
 
       return withinBounds(pos) &&
               getOccupancyCell(pos) != null;

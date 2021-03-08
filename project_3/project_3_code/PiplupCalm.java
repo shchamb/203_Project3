@@ -11,7 +11,8 @@ public class PiplupCalm extends Octo{
     public boolean panic = false;
 
     public PiplupCalm(String id, Point position, List<PImage> images, int resourceLimit,
-                      int resourceCount, int actionPeriod, int animationPeriod) {
+                      int resourceCount, int actionPeriod, int animationPeriod)
+    {
         super(id, position,images,  resourceLimit, resourceCount, actionPeriod, animationPeriod);
 
 
@@ -78,8 +79,9 @@ public class PiplupCalm extends Octo{
         {
 
 
-            Octo octo = new PiplupPanic(this.getId(), this.getPosition(), imageStore.getImageList("octoFull"),  this.getResourceLimit(), 0,
-                    this.getActionPeriod() / 8, this.getAnimationPeriod() / 4);
+            Octo octo = entityFactory.createPiplupPanic(this.getPosition(), imageStore);
+
+
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);

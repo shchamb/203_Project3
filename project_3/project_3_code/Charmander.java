@@ -82,16 +82,20 @@ public class Charmander extends Entity{
         if(this.direction == "right"){
 //            Fire f = new Fire("fire", new Point(this.getPosition().x+1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
 //            Fire f = new Fire("fire",new Point(this.getPosition().x + 1, this.getPosition().y) , new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
-            System.out.println("Charmander: " + ' ' + new Point(this.getPosition().x + 1, this.getPosition().y));
-            System.out.println("Mouse Click: " + ' ' + new Point(dirX, dirY));
-            Fire f = new Fire("fire", new Point(this.getPosition().x + 1, this.getPosition().y), new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
+//            System.out.println("Charmander: " + ' ' + new Point(this.getPosition().x + 1, this.getPosition().y));
+//            System.out.println("Mouse Click: " + ' ' + new Point(dirX, dirY));
+            Fire f = entityFactory.createFire(new Point(this.getPosition().x + 1, this.getPosition().y),
+                    new Point(dirX, dirY), imageStore);
                 f.beFire(world, imageStore);
                 f.scheduleActions(scheduler, world, imageStore);
 
 //            Background.melt(world, new Point(dirX, dirY), imageStore);
             }else{
 //            Fire f = new Fire("fire", new Point(this.getPosition().x-1, this.getPosition().y + dirY), imageStore.getImageList(Fire.FIRE_KEY), 0, 0);
-                Fire f = new Fire("fire", new Point(this.getPosition().x - 1, this.getPosition().y), new Point(dirX, dirY), imageStore.getImageList(Fire.FIRE_KEY));
+                Fire f = entityFactory.createFire(new Point(this.getPosition().x - 1, this.getPosition().y),
+                        new Point(dirX, dirY), imageStore);
+
+//                        new Fire("fire",  .getImageList(Fire.FIRE_KEY));
                 f.setImageIndex(1);
                 f.beFire(world, imageStore);
 //                Background.melt(world, new Point(dirX, dirY), imageStore);

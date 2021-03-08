@@ -45,7 +45,10 @@ final class Background
       Point dDown = new Point(pos.x+1, pos.y+1);
       Point front = new Point(pos.x+1, pos.y);
       System.out.println(pos);
-      if(world.getOccupant(pos).get() instanceof Fire || world.getOccupant(pos).get() instanceof Caterpie){
+      if(world.getOccupant(pos).equals(Optional.empty())){
+         System.out.println("nothing");
+      }
+      else if(world.getOccupant(pos).get() instanceof Fire || world.getOccupant(pos).get() instanceof Caterpie){
          world.setBackground(pos, new Background("grass", imageStore.getImageList("grass")));
 //         world.setBackground(above, new Background("grass", imageStore.getImageList("grass")));
 //         world.setBackground(below, new Background("grass", imageStore.getImageList("grass")));

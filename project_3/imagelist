@@ -46,7 +46,7 @@ quake images/c3.bmp 255 255 255 0
 quake images/c4.bmp 255 255 255 0
 quake images/c5.bmp 255 255 255 0
 quake images/c6.bmp 255 255 255 0
-bubbles images/big_bubbles.bmp
+bubbles images/grass.bmp
 seaGrass images/big_Seaweed1.bmp 255 255 255 0
 background_default images/big_none.bmp
 ho_oh images/ho_oh.bmp 255 255 255 0

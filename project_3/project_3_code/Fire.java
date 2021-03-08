@@ -15,6 +15,7 @@ public class Fire extends activeEntity{
     public static final int FIRE_ACTION_PERIOD = 2;
     public static final int FIRE_ANIMATION_PERIOD = 3;
     public int actionPeriod = 11;
+
     public Point dest;
     Random rand = new Random();
 
@@ -22,12 +23,20 @@ public class Fire extends activeEntity{
 //    public int animationPeriod = 10;
 //    public Point pos;
 
-
-    public Fire(String id, Point position, Point dest, List<PImage> images) {
-        super(id, position, images, 11);
+    public void setDest(Point dest){
+        System.out.println("hit");
         this.dest = dest;
-//        this.pos = pos;
     }
+
+    public Fire(String id, Point position, List<PImage> images) {
+        super(id, position, images, 11);
+//        this.pos = pos;
+
+    }
+
+
+
+
 
     public void beFire(WorldModel world, ImageStore imageStore){
         world.addEntity(this);
@@ -70,7 +79,9 @@ public class Fire extends activeEntity{
 
 
             else {
-                Fire f = new Fire("fire", nextPos, this.dest, imageStore.getImageList(Fire.FIRE_KEY));
+                Fire f = (Fire) new fireFactory().createEntity(nextPos);
+                // Fire("fire", nextPos, this.dest, imageStore.getImageList(Fire.FIRE_KEY));
+                f.setDest(this.dest);
                 Point oldPos = this.getPosition();
                 world.removeEntity(this);
                 f.beFire(world, imageStore);
@@ -87,11 +98,9 @@ public class Fire extends activeEntity{
                         nextPeriod);
                 if(rand.nextInt(15) < 1){
                     Point ho_oh_dest = world.findNearest(this.getPosition(), ho_oh.class).get().getPosition();
-                    Caterpie cat = new Caterpie("caterpie", oldPos, ho_oh_dest,
-                            new LinkedList<>(),
-                            imageStore.getImageList("caterpie"),
-                            200, 10,
-                            world);
+                    Caterpie cat = (Caterpie) new caterpieFactory().createEntity(oldPos);
+
+
                     world.addEntity(cat);
                     System.out.println("caterpie");
                     cat.scheduleActions(scheduler, world, imageStore);
@@ -107,10 +116,9 @@ public class Fire extends activeEntity{
             if(rand.nextInt(15) < 1){
                 Point ho_oh_dest = world.findNearest(this.getPosition(), ho_oh.class).get().getPosition();
 
-                Caterpie cat = new Caterpie("caterpie", this.dest, ho_oh_dest, new LinkedList(),
-                        imageStore.getImageList("caterpie"),
-                        200, 10,
-                        world);
+                Caterpie cat = (Caterpie)new caterpieFactory().createEntity(this.dest);
+
+
                 world.addEntity(cat);
                 System.out.println("caterpie");
                 cat.scheduleActions(scheduler, world, imageStore);

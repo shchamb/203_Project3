@@ -43,8 +43,8 @@ public final class VirtualWorld
 
    public static double timeScale = 1.0;
 
-   public ImageStore imageStore;
-   public WorldModel world;
+   public static ImageStore imageStore;
+   public static WorldModel world;
    public WorldView view;
    public EventScheduler scheduler;
 
@@ -59,9 +59,16 @@ public final class VirtualWorld
       size(VIEW_WIDTH, VIEW_HEIGHT);
    }
 
+   public static WorldModel getWorld() {
+      return world;
+   }
+   public static ImageStore getImageStore() {
+      return imageStore;
+   }
+
    /*
-      Processing entry point for "sketch" setup.
-   */
+         Processing entry point for "sketch" setup.
+      */
    public void setup()
    {
       this.imageStore = new ImageStore(

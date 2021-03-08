@@ -402,8 +402,16 @@ final class WorldModel
          for(int j = 0; j < numRows; j++){
             Point p = new Point(i, j);
             Background b = getBackgroundCell(p);
+            Optional<Entity> maybeObstacle = getOccupant(p);
             if(b.getId() == "grass"){
-               ofType.add(p);
+               if(!maybeObstacle.equals(Optional.empty())){
+                  if(maybeObstacle.get() instanceof Obstacle){
+                     continue;
+                  }
+               }
+                  ofType.add(p);
+
+
             }
          }
       }

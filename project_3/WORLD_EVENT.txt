@@ -1,0 +1,88 @@
+1. how to trigger the event
+    The event is triggered by a mouse click anywhere on the screen.
+2. what should happen when the event is triggered
+    When the event is triggered, a fireball entity is created next to charmander that follows an
+    AStar path to the location of the mouse click. Any snow background tile that the fireball
+    touches "melts" and turns into a grass background.
+3. what the affected entities should do
+    When a fireball gets too close to a PiplupCalm entity, they become a PiplupPanic and start running
+    around frantically(their actionPeriod is reduced). They also turn red and if they walk across
+    a grass background, they will turn it back into a snow background. Piplups move with a Single Step pathing
+    algorithm.
+4. what the new entity is and how it should behave
+    Whenever a fireball melts snow or moves over grass, there is a chance that a Caterpie entity will
+    spawn from the grass after being freed from under the snow. This new Caterpie uses Depth First Search
+    to find its way to the Ho-oh statue where it disappears.
+5. (if applicable) the names of each partner and what each partner was responsible for
+    John Shutler - Factory Design, AStar, Resizing worldview and images, Ho-oh, Original code base
+    Shayna Chambless - Depth First Search, Single Step, Charmander, Piplup, Caterpie
+
+
+
+    Game Mechanics (Video):
+        •Charmander moveable with cursor keys
+        •Charmander Shoots Fire  -> create fireball entity next to charmander when mouse is clicked,
+        takes AStar path to mouse click point
+            •melt the snow -> calls melt function whenever it is over snow, changes background image
+            •spawn Caterpie -> when the fireball goes over a position, there is a 1 in 15 chance
+            that a Caterpie Entity will be created. If it is, the Caterpie makes its way to the
+            Ho-oh entity with Depth first search, and animates then disappears from the world
+            •panic piplup -> if a piplupCalm entity is near a fireball when it is moving, it will become a
+            red piplupPanic entity with an increased action period that takes a single step pathing
+            strategy to a random point until it is calm again.
+                •panic piplup makes snow -> if a panic piplup crosses a grass background, it will turn it back
+                into snow.
+        •Calm Piplups are spawned at the beginning of each game. They are neutral entities that wander around
+        to random points in the world until spooked by a fireball.
+        •The Ho-oh statue is created at the beginning of the game, and it is where the Caterpies must make their
+        way when they are freed.
+
+        we didnt use any other design?
+
+
+
+        public Optional<Point> findNearestGrass(Point pos){
+        //      List<Background> ofType = new LinkedList<>();
+        //      for(Background[] b: background){
+        //         for(Background p: b){
+        //            if(p.getId() == "grass"){
+        //               ofType.add(p);
+        //            }
+        //         }
+        //      }
+        //      return nearestBackground(ofType, pos);
+              List<Point> ofType = new LinkedList<>();
+              for(int i = 0; i < numCols; i++){
+                 for(int j = 0; j < numRows; j++){
+                    Point p = new Point(i, j);
+                    Background b = getBackgroundCell(p);
+                    if(b.getId() == "grass"){
+                       ofType.add(p);
+                    }
+                 }
+              }
+              return nearestBackground(ofType, pos);
+
+           }
+
+           public Optional<Point> nearestBackground(List<Point> b, Point pos){
+              if(b.isEmpty()){
+                 return Optional.empty();
+              }
+              Point nearest = b.get(0);
+              int nearestDistance = nearest.distanceSquared(pos);
+
+              for (Point other : b)
+              {
+                 int otherDistance = other.distanceSquared(pos);
+
+                 if (otherDistance < nearestDistance)
+                 {
+                    nearest = other;
+                    nearestDistance = otherDistance;
+                 }
+              }
+
+              return Optional.of(nearest);
+
+           }

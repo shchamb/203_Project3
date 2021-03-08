@@ -18,7 +18,6 @@ class SingleStepPathingStrategy implements PathingStrategy
                 .filter(canPassThrough)
                 .filter(pt ->
                         !pt.equals(start)
-                                && !pt.equals(end)
                                 && Math.abs(end.x - pt.x) <= Math.abs(end.x - start.x)
                                 && Math.abs(end.y - pt.y) <= Math.abs(end.y - start.y))
                 .limit(1)

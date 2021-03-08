@@ -51,7 +51,7 @@ final class Background
 //         world.setBackground(dUp, new Background("grass", imageStore.getImageList("grass")));
 //         world.setBackground(dDown, new Background("grass", imageStore.getImageList("grass")));
          world.setBackground(front, new Background("grass", imageStore.getImageList("grass")));
-      }else if(world.getOccupant(pos).get() instanceof PiplupPanic){
+      }else if(world.getOccupant(pos).get() instanceof PiplupCalm){
          world.setBackground(pos, new Background("sea", imageStore.getImageList("sea")));
       }
    }

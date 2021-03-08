@@ -385,45 +385,51 @@ final class WorldModel
       return nearestEntity(ofType, pos);
    }
 
-//   public Optional<Background> findNearestGrass(Point pos){
-////      List<Background> ofType = new LinkedList<>();
-////      for(Background[] b: background){
-////         for(Background p: b){
-////            if(p.getId() == "grass"){
-////               ofType.add(p);
-////            }
-////         }
-////      }
-////      return nearestBackground(ofType, pos);
-//      List<Point> ofType = new LinkedList<>();
-//
-//   }
-//
-//   public Optional<Background> nearestBackground(List<Background> b, Point pos){
-//      if (b.isEmpty())
-//      {
-//         return Optional.empty();
-//      }
-//      else
-//      {
-//         Background nearest = b.get(0);
-//         int nearestDistance = nearest.getPosition().distanceSquared(pos);
-//
-//         for (Background other : b)
-//         {
-//            int otherDistance = other.getPosition().distanceSquared(pos);
-//
-//            if (otherDistance < nearestDistance)
-//            {
-//               nearest = other;
-//               nearestDistance = otherDistance;
+   public Optional<Point> findNearestGrass(Point pos){
+//      List<Background> ofType = new LinkedList<>();
+//      for(Background[] b: background){
+//         for(Background p: b){
+//            if(p.getId() == "grass"){
+//               ofType.add(p);
 //            }
 //         }
-//
-//         return Optional.of(nearest);
 //      }
-//
-//   }
+//      return nearestBackground(ofType, pos);
+      List<Point> ofType = new LinkedList<>();
+      for(int i = 0; i < numCols; i++){
+         for(int j = 0; j < numRows; j++){
+            Point p = new Point(i, j);
+            Background b = getBackgroundCell(p);
+            if(b.getId() == "grass"){
+               ofType.add(p);
+            }
+         }
+      }
+      return nearestBackground(ofType, pos);
+
+   }
+
+   public Optional<Point> nearestBackground(List<Point> b, Point pos){
+      if(b.isEmpty()){
+         return Optional.empty();
+      }
+      Point nearest = b.get(0);
+      int nearestDistance = nearest.distanceSquared(pos);
+
+      for (Point other : b)
+      {
+         int otherDistance = other.distanceSquared(pos);
+
+         if (otherDistance < nearestDistance)
+         {
+            nearest = other;
+            nearestDistance = otherDistance;
+         }
+      }
+
+      return Optional.of(nearest);
+
+   }
    /*
       Assumes that there is no entity currently occupying the
       intended destination cell.

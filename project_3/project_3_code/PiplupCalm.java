@@ -22,9 +22,15 @@ public class PiplupCalm extends Octo{
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
 //        Optional<Entity> notFullTarget = world.findNearest(this.getPosition(),
 //                Fish.class);
-        Point target = new Point(rand.nextInt(40), rand.nextInt(30));
+        Point target = null;
+        Optional<Point> grassTarget = world.findNearestGrass(this.getPosition());
+        if(!grassTarget.equals(Optional.empty())){
+            target = grassTarget.get();
+        }else{
+            target = new Point(rand.nextInt(40), rand.nextInt(30));
+        }
 //
-        if (!this.moveToPoint(world, target, scheduler) ||
+        if (!this.moveToPoint(world, target, scheduler, imageStore) ||
                 !this.panic(world, scheduler, imageStore)) {
 
 
@@ -39,8 +45,9 @@ public class PiplupCalm extends Octo{
 
 
     public boolean moveToPoint(WorldModel world,
-                          Point target, EventScheduler scheduler)
+                          Point target, EventScheduler scheduler, ImageStore imageStore)
     {
+
 
 
 
@@ -49,8 +56,9 @@ public class PiplupCalm extends Octo{
             panic = true;
             return true;
         }
-        if (this.getPosition().adjacent(target))
+        if (this.getPosition().equals(target))
         {
+            Background.melt(world, this.getPosition(), imageStore);
 
             return true;
         }
